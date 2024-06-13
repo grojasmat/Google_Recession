@@ -22,15 +22,7 @@ library(fpp2)
 library(Hmisc)
 library(foreign)
 
-#setwd("/Users/gustavorojasmatute/Documents/AmericanU/AU/Forecasting")
-#setwd("~/Library/Mobile Documents/com~apple~CloudDocs/AmericanU/AU/Forecasting")
-## read file ##
-yield_curve <- read.csv("yield_curve_1.csv") 
-yield_curve_t  <- yield_curve[,2]
-recession_t <- as.numeric(as.character(yield_curve[,3]))
 
-yield_curve_t_l <- Lag(yield_curve_t,12)
-years_yc <- yield_curve[,1]
 
 p20 <- glm(recession_t ~ yield_curve_t_l, family=binomial(link="probit"))
 yield_prob <- predict(p20, type = 'response')
@@ -43,15 +35,14 @@ write.csv(data.frame(years_yc[13:486],recession_t[13:486],yield_prob), "yield_mo
 ## for recession 
 
 library(Quandl)
-Quandl.api_key("od1zB5Q7x84pJk4HmhsQ")
+Quandl.api_key("vvvvv")
 rec  = Quandl("FRED/USREC",type = "ts", start_date="2004-01-01")
 sm.Prob  = Quandl("FRED/RECPROUSM156N",type = "ts", start_date="2004-01-01")/100
 
 #yield_curve  = Quandl("FRED/T10Y3M",type = "ts", start_date="2004-01-01")
 
 
-Sys.setenv("plotly_username"="grojasmatute")
-Sys.setenv("plotly_api_key"="CCHhbi6CwBTyOiA3rbIc")
+
 
 
 ##
